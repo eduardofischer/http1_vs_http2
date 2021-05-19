@@ -17,9 +17,7 @@ const credentials = {
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-  res.status(200).sendFile('index.html')
-})
+app.get('/', (req, res) => res.status(200).sendFile('index.html'))
 
 const http1Server = http.createServer(app)
 const https1Server = https.createServer(credentials, app)
@@ -30,7 +28,10 @@ http1Server.listen(HTTP1_PORT, (error) => {
     console.error(error)
     return process.exit(1)
   } else {
-    console.log(`Servidor HTTP 1.1 online em http://localhost:${HTTP1_PORT}/`)
+    console.log('Servidor HTTP 1.1:')
+    console.log(`- Página HTML + CSS + Imagens: http://localhost:${HTTP1_PORT}/`)
+    console.log(`- Texto 44Kb: http://localhost:${HTTP1_PORT}/small-text.txt`)
+    console.log(`- Texto 2Mb: http://localhost:${HTTP1_PORT}/large-text.txt\n`)
   }
 })
 
@@ -39,7 +40,10 @@ https1Server.listen(HTTPS1_PORT, (error) => {
     console.error(error)
     return process.exit(1)
   } else {
-    console.log(`Servidor HTTPS 1.1 online em https://localhost:${HTTPS1_PORT}/`)
+    console.log('Servidor HTTPsS 1.1:')
+    console.log(`- Página HTML + CSS + Imagens: http://localhost:${HTTPS1_PORT}/`)
+    console.log(`- Texto 44Kb: http://localhost:${HTTPS1_PORT}/small-text.txt`)
+    console.log(`- Texto 2Mb: http://localhost:${HTTPS1_PORT}/large-text.txt\n`)
   }
 })
 
@@ -48,6 +52,9 @@ https2Server.listen(HTTPS2_PORT, (error) => {
     console.error(error)
     return process.exit(1)
   } else {
-    console.log(`Servidor HTTPS 2 online em https://localhost:${HTTPS2_PORT}/`)
+    console.log('Servidor HTTPS 2:')
+    console.log(`- Página HTML + CSS + Imagens: http://localhost:${HTTPS2_PORT}/`)
+    console.log(`- Texto 44Kb: http://localhost:${HTTPS2_PORT}/small-text.txt`)
+    console.log(`- Texto 2Mb: http://localhost:${HTTPS2_PORT}/large-text.txt\n`)
   }
 })

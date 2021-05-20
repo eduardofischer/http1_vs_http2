@@ -17,7 +17,8 @@ const credentials = {
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) => res.status(200).sendFile('./index.html'))
+app.get('/', (req, res) => res.status(200).sendFile(__dirname + '/index.html'))
+app.get('/inline', (req, res) => res.status(200).sendFile(__dirname + '/index_inline.html'))
 
 const http1Server = http.createServer(app)
 const https1Server = https.createServer(credentials, app)

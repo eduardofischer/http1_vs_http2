@@ -1,9 +1,17 @@
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+
 .image-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   column-gap: 10px;
   row-gap: 10px;
+  margin-top: 25px;
 }
 
 .image-grid img {

@@ -4,19 +4,9 @@ const http = require('http')
 const https = require('https')
 const fs = require('fs')
 
-// Definição das portas onde cada um dos servidores será servido
-const HTTP1_PORT = 8000
-const HTTPS1_PORT = 8001
-const HTTPS2_PORT = 8002
-
+// APLICAÇÃO EXPRESS
 // Criação da aplicação express - essa mesma aplicação será servida por cada um dos servidores abaixo
 const app = express()
-
-// Certificados SSL utilizados para a criptografia HTTPS
-const credentials = {
-  key: fs.readFileSync(__dirname + '/server.key'),
-  cert:  fs.readFileSync(__dirname + '/server.crt')
-}
 
 // Aqui definimos o diretório de onde serão servidos os arquivos estáticos
 app.use(express.static('public'))
@@ -56,6 +46,18 @@ app.get('/push', async (req, res) => {
   res.end(await readFile("index.html"))
 })
 
+// SERVIDORES HTTP
+// Definição das portas onde cada um dos servidores será servido
+const HTTP1_PORT = 8000
+const HTTPS1_PORT = 8001
+const HTTPS2_PORT = 8002
+
+// Certificados SSL utilizados para a criptografia HTTPS
+const credentials = {
+  key: fs.readFileSync(__dirname + '/server.key'),
+  cert:  fs.readFileSync(__dirname + '/server.crt')
+}
+
 // Aqui criamos os 3 servidores distintos (HTTP1.1, HTTPS1.1 e HTTPS2)
 const http1Server = http.createServer(app)
 const https1Server = https.createServer(credentials, app)
@@ -83,10 +85,10 @@ https1Server.listen(HTTPS1_PORT, (error) => {
     return process.exit(1)
   } else {
     console.log('Servidor HTTPS 1.1:')
-    console.log(`- Página HTML + CSS + Imagens: http://localhost:${HTTPS1_PORT}/`)
-    console.log(`- Página HTML + CSS + Imagens (Inlining): http://localhost:${HTTPS1_PORT}/inline`)
-    console.log(`- Texto 44Kb: http://localhost:${HTTPS1_PORT}/small-text.txt`)
-    console.log(`- Texto 2Mb: http://localhost:${HTTPS1_PORT}/large-text.txt\n`)
+    console.log(`- Página HTML + CSS + Imagens: https://localhost:${HTTPS1_PORT}/`)
+    console.log(`- Página HTML + CSS + Imagens (Inlining): https://localhost:${HTTPS1_PORT}/inline`)
+    console.log(`- Texto 44Kb: https://localhost:${HTTPS1_PORT}/small-text.txt`)
+    console.log(`- Texto 2Mb: https://localhost:${HTTPS1_PORT}/large-text.txt\n`)
   }
 })
 
@@ -96,10 +98,10 @@ https2Server.listen(HTTPS2_PORT, (error) => {
     return process.exit(1)
   } else {
     console.log('Servidor HTTPS 2:')
-    console.log(`- Página HTML + CSS + Imagens: http://localhost:${HTTPS2_PORT}/`)
-    console.log(`- Página HTML + CSS + Imagens (Server Push): http://localhost:${HTTPS2_PORT}/push`)
-    console.log(`- Página HTML + CSS + Imagens (Inlining): http://localhost:${HTTPS2_PORT}/inline`)
-    console.log(`- Texto 44Kb: http://localhost:${HTTPS2_PORT}/small-text.txt`)
-    console.log(`- Texto 2Mb: http://localhost:${HTTPS2_PORT}/large-text.txt\n`)
+    console.log(`- Página HTML + CSS + Imagens: https://localhost:${HTTPS2_PORT}/`)
+    console.log(`- Página HTML + CSS + Imagens (Server Push): https://localhost:${HTTPS2_PORT}/push`)
+    console.log(`- Página HTML + CSS + Imagens (Inlining): https://localhost:${HTTPS2_PORT}/inline`)
+    console.log(`- Texto 44Kb: https://localhost:${HTTPS2_PORT}/small-text.txt`)
+    console.log(`- Texto 2Mb: https://localhost:${HTTPS2_PORT}/large-text.txt\n`)
   }
 })

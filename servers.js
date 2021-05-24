@@ -35,7 +35,7 @@ app.get('/push', async (req, res) => {
         "/images/img14.jpeg",
         "/images/img15.jpeg",
       ].forEach(async (file) => {
-        res.push(file, {}).end(await readFile(`public${file}`))
+        res.push(file, {}).end(fs.readFileSync(`public${file}`))
       })
     } 
   } catch (e) {
@@ -43,7 +43,7 @@ app.get('/push', async (req, res) => {
   }
   
   res.writeHead(200)
-  res.end(await readFile("index.html"))
+  res.end(fs.readFileSync("index.html"))
 })
 
 // SERVIDORES HTTP
